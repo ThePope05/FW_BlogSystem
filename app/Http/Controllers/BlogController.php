@@ -83,6 +83,7 @@ class BlogController extends Controller
 
     public function destroy(Blog $blog): RedirectResponse
     {
+        $blog->comment()->delete();
         $blog->where('user_id', auth()->user()->id)->where('id', $blog->id)->delete();
 
         return redirect()->route('blog.index');
